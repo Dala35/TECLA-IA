@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TECLA 4.0 – IA Leve</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>🤖 TECLA 4.0</h1>
+    <p>Comunicação assistiva com IA local e bilíngue</p>
+  </header>
+  <main class="container">
+    <label for="idioma">🌐 Idioma:</label>
+    <select id="idioma">
+      <option value="pt-PT">Português</option>
+      <option value="en-US">English</option>
+    </select><label for="entrada">💬 Digite ou fale algo:</label>
+<input type="text" id="entrada" placeholder="Ex: Quero água" />
+<button onclick="responder()">🔊 Falar</button>
+<button onclick="ouvir()">🎙️ Falar com TECLA</button>
+
+<div class="pictogramas">
+  <div class="pictograma" onclick="usarFrase('Quero comer')">🍽️ Comer</div>
+  <div class="pictograma" onclick="usarFrase('Estou com dor')">🤕 Dor</div>
+  <div class="pictograma" onclick="usarFrase('Quero brincar')">🧸 Brincar</div>
+</div>
+
+<div id="saida"></div>
+<div id="sugestoes"></div>
+
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
