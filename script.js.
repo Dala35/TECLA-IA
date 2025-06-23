@@ -1,0 +1,76 @@
+function responder() {
+  const entrada = document.getElementById("entrada").value;
+  const idioma = document.getElementById("idioma").value;
+
+  let resposta = gerarRespostaIA(entrada, idioma);
+
+  document.getElementById("saida").innerText = resposta;
+  const synth = window.speechSynthesis;
+  const utterThis = new SpeechSynthesisUtterance(resposta);
+  utterThis.lang = idioma;
+  synth.speak(utterThis);
+
+  salvarFrase(entrada);
+}
+
+function usarFrase(texto) {
+  document.getElementById("entrada").value = texto;
+  responder();
+}
+
+function salvarFrase(frase) {
+  let historico = JSON.parse(localStorage.getItem("frasesTecla")) || [];
+  historico.push(frase);
+  if (historico.length > 5) historico.shift();
+  localStorage.setItem("frasesTecla", JSON.stringify(historico));
+}
+
+function falar() {
+  const idioma = document.getElementById("idioma").value;
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = idioma;
+  recognition.start();
+
+  recognition.onresult = function(event) {
+    const textoFalado = event.results[0][0].transcript;
+    document.getElementById("entrada").value = textoFalado;
+    responder();
+  };
+}
+
+// IA leve: ajusta resposta com base em intenções simples
+function gerarRespostaIA(frase, idioma) {
+  let respostaBase;
+  const lower = frase.toLowerCase();
+
+  if (lower.includes("comer") || lower.includes("fome")) {
+    respostaBase = idioma === "pt-PT" ? "Você quer comer algo? Vamos procurar!" : "You want to eat something? Let's find it!";
+  } else if (lower.includes("banheiro")) {
+    respostaBase = idioma === "pt-PT" ? "Precisa ir ao banheiro? Vamos lá." : "Need to go to the bathroom? Let's go.";
+  } else if (lower.includes("triste")) {
+    respostaBase = idioma === "pt-PT" ? "Está triste? Estou aqui com você." : "Feeling sad? I'm here with you.";
+  } else if (lower.includes("feliz")) {
+    respostaBase = idioma === "pt-PT" ? "Que bom que está feliz!" : "So happy you're feeling good!";
+  } else if (lower.includes("dor")) {
+    respostaBase = idioma === "pt-PT" ? "Você está com dor? Vamos cuidar disso." : "You're in pain? Let's take care of that.";
+  } else {
+    respostaBase = idioma === "pt-PT"
+      ? "Tecla disse: '" + frase + "'. Vamos entender com carinho e atenção."
+      : "Tecla said: '" + frase + "'. Let's listen with care and love.";
+  }
+
+  return respostaBase;
+}
+
+window.onload = function() {
+  let historico = JSON.parse(localStorage.getItem("frasesTecla")) || [];
+  if (historico.length > 0) {
+    const sugestoes = historico.map(frase => `<li onclick="document.getElementById('entrada').value='${frase}'">🔁 ${frase}</li>`).join('');
+    const lista = document.createElement("ul");
+    lista.innerHTML = `<strong>💡 Sugestões:</strong>` + sugestoes;
+    lista.style.listStyleType = "none";
+    lista.style.paddingLeft = "0";
+    lista.style.marginTop = "15px";
+    document.querySelector(".container").appendChild(lista);
+  }
+};
