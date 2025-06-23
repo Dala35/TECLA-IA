@@ -1,0 +1,75 @@
+body {
+  font-family: Comic Sans MS, Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #fff9f0;
+  color: #333;
+}
+
+header {
+  text-align: center;
+  padding: 10px;
+  background-color: #4b9cd3;
+  color: white;
+  border-radius: 8px;
+}
+
+.container {
+  max-width: 650px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+select, input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+button {
+  background-color: #4b9cd3;
+  color: white;
+  padding: 12px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.pictogramas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pictograma {
+  flex: 1 1 30%;
+  background-color: #e1f0fb;
+  padding: 14px;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #aad;
+}
+
+.pictograma:hover {
+  background-color: #cde9fa;
+}
+
+#saida {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #222;
+  padding: 10px;
+  background-color: #e6f7ff;
+  border-radius: 8px;
+}
